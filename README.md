@@ -2,6 +2,7 @@
 
 A beautiful, vintage-inspired Jekyll theme for creating book library/profile pages. Based on the original [Paperback HTML design](https://toyhou.se/30182937.paperback-f2u/30231690.live-preview) by Starcorex, adapted for Jekyll with dynamic content generation.
 
+![Theme Preview](https://github.com/breakthebull/book-theme/blob/main/library.png)
 ![Theme Preview](https://github.com/breakthebull/book-theme/blob/main/screenshot.png)
 
 ---
