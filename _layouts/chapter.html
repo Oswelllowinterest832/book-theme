@@ -1,34 +1,191 @@
 ---
-layout: book-profile
+layout: default  # ← Standalone, not wrapped by book-profile
 ---
 
-<!-- Override the main content area for chapters -->
-<div class="chapter-intro">
-    <div class="chapter-badge-large">Chapter {{ page.chapter }}</div>
-    <h2 class="chapter-title">{{ page.title }}</h2>
-    <p class="chapter-book">from <em>{{ page.book }}</em></p>
-</div>
+{% comment %}
+  CHAPTER LAYOUT: Look up parent book data for left sidebar
+{% endcomment %}
 
-<div class="chapter-content-wrapper">
-    {{ content }}
-</div>
+{% assign parent_book = nil %}
 
-<!-- Chapter navigation -->
-<nav class="chapter-nav">
-    {% assign book_chapters = site.chapters
-        | where: "book", page.book
-        | sort: "chapter"
-    %}
+{% if page.book_slug %}
+  {% assign parent_book = site.books | where: "slug", page.book_slug | first %}
+{% elsif page.book %}
+  {% assign parent_book = site.books | where: "title", page.book | first %}
+{% endif %}
 
-    {% if book_chapters.size > 1 %}
-    <div class="chapter-nav-inner">
-        {% for chap in book_chapters %}
-            {% if chap.url == page.url %}
-            <span class="current">● {{ chap.chapter }}</span>
-            {% else %}
-            <a href="{{ chap.url | relative_url }}" class="chapter-link">{{ chap.chapter }}</a>
-            {% endif %}
-        {% endfor %}
+{% comment %}
+  Override page values with book values for sidebar display
+{% endcomment %}
+{% if parent_book %}
+  {% assign display_title = parent_book.title %}
+  {% assign display_author = parent_book.author %}
+  {% assign display_cover = parent_book.cover_image %}
+  {% assign display_quote = parent_book.quote %}
+  {% assign display_traits = parent_book.traits %}
+  {% assign display_genre = parent_book.genre %}
+  {% assign display_series = parent_book.series %}
+  {% assign display_description = parent_book.description %}
+  {% assign display_buy_link = parent_book.buy_link %}
+  {% assign display_about_title = parent_book.about_title %}
+  {% assign display_about_text = parent_book.about_text %}
+  {% assign display_content_warning = parent_book.content_warning %}
+  {% assign display_wip = parent_book.work_in_progress %}
+{% else %}
+  {% assign display_title = page.title %}
+  {% assign display_author = page.author %}
+  {% assign display_cover = page.cover_image %}
+  {% assign display_quote = page.quote %}
+  {% assign display_traits = page.traits %}
+  {% assign display_genre = page.genre %}
+  {% assign display_series = page.series %}
+  {% assign display_description = page.description %}
+  {% assign display_buy_link = page.buy_link %}
+  {% assign display_about_title = page.about_title %}
+  {% assign display_about_text = page.about_text %}
+  {% assign display_content_warning = page.content_warning %}
+  {% assign display_wip = page.work_in_progress %}
+{% endif %}
+
+<!-- Pre-compute book identifier for chapter lookup -->
+{% assign book_identifier = page.book_slug | default: page.book | downcase | replace: " ", "-" | replace: '"', "" %}
+
+<div class="card-frame">
+    <div class="card-corners">
+        <span class="corner corner-tl">❧</span>
+        <span class="corner corner-tr">❧</span>
+        <span class="corner corner-bl">❧</span>
+        <span class="corner corner-br">❧</span>
     </div>
-    {% endif %}
-</nav>
+
+    <div class="main-wrapper">
+        <!-- LEFT SIDE - Uses book data for chapters -->
+        <aside class="left-sidebar">
+            <div class="left-top-cards">
+                <!-- Card 1: Image & Quote -->
+                <div class="card-image-quote">
+                    <div class="image-box">
+                        {% if display_cover %}
+                        <img src="{{ display_cover }}" alt="{{ display_title }}">
+                        {% else %}
+                        <div class="no-image">No Cover</div>
+                        {% endif %}
+                    </div>
+
+                    {% if display_buy_link %}
+                    <a href="{{ display_buy_link }}" target="_blank" class="buy-button">Buy Book</a>
+                    {% endif %}
+
+                    <div class="quote-box">
+                        <p class="quote-text">"{{ display_quote | default: 'A quote about this book would go here' }}"</p>
+                    </div>
+                </div>
+
+                <!-- Card 2: Metadata -->
+                <div class="card-meta">
+                    {% include book-meta.html
+                       title=display_title
+                       subtitle=page.subtitle
+                       author=display_author
+                       translator=page.translator
+                       published=page.published
+                       publisher=page.publisher
+                       genre=display_genre
+                       series=display_series
+                       pages=page.pages
+                       status=page.status
+                    %}
+                </div>
+            </div>
+
+            <!-- Bottom: About Section -->
+            <div class="card-about">
+                {% include about-book.html
+                   about_title=display_about_title
+                   about_text=display_about_text
+                   content_warning=display_content_warning
+                   work_in_progress=display_wip
+                %}
+            </div>
+        </aside>
+
+        <!-- RIGHT SIDE - Chapter-specific content -->
+        <main class="main-content">
+            <header class="book-header">
+                <h1 class="book-title">{{ display_title | upcase }}</h1>
+                {% if display_traits %}
+                <div class="book-traits">
+                    [ {{ display_traits | join: " / " | upcase }} ]
+                </div>
+                {% endif %}
+                <div class="decorative-divider">
+                    <span class="floral-element">❦</span>
+                </div>
+            </header>
+
+            <!-- Chapter Intro -->
+            <section class="introduction-section">
+                <div class="intro-title-lines">
+                    <span class="line-solid"></span>
+                    <h2 class="section-title">
+                        [ CHAPTER {{ page.chapter }} ]
+                    </h2>
+                    <span class="line-solid"></span>
+                </div>
+
+                <!-- Scroll Container -->
+                <div class="scroll-container">
+                    <span class="line-dashed-left"></span>
+                    <div class="scroll-box">
+                        <div class="intro-text-wrapper">
+                            <p class="intro-text">
+                                <strong>{{ page.title }}</strong> from 
+                                <em>{{ display_title }}</em> by {{ display_author }}.
+                            </p>
+                        </div>
+                        {{ content }}
+                    </div>
+                    <span class="line-dashed-right"></span>
+                </div>
+            </section>
+
+            <!-- Scroll Label -->
+            <div class="scroll-label-container">
+                <span class="scroll-label">scroll to read more</span>
+            </div>
+
+            <!-- Chapter Navigation -->
+            <section class="related-section">
+                <div class="related-scroll-wrapper">
+                    <span class="line-dashed-left"></span>
+                    <ul class="bullet-list">
+                        <li class="book-link">
+                            <a href="{{ '/' | relative_url }}">📚 Back to Library</a>
+                        </li>
+                        
+                        {% assign book_chapters = site.chapters 
+                            | where_exp: "chap", "chap.path contains book_identifier"
+                            | sort: "chapter" 
+                        %}
+                        
+                        {% for chap in book_chapters %}
+                        <li>
+                            <a href="{{ chap.url | relative_url }}">
+                                <span class="chapter-badge">Ch. {{ chap.chapter }}</span>
+                                {{ chap.title | default: chap.display_title }}
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    <span class="line-dashed-right"></span>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="book-footer">
+                <p>Code inspired by <a href="https://toyhou.se/Starcorex" target="_blank">Starcorex</a></p>
+                <p>Adapted for Jekyll by <a href="https://darbooks.com" target="_blank">DAR</a></p>
+            </footer>
+        </main>
+    </div>
+</div>
