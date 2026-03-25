@@ -58,7 +58,7 @@ bundle exec jekyll serve
 ```
 Visit `http://localhost:4000`
 
-### 5. Deploy to Nixihost
+### 5. Deploy
 ```bash
 bundle exec jekyll build
 # Upload contents of _site/ folder to public_html/ via FTP
@@ -66,7 +66,7 @@ bundle exec jekyll build
 
 ---
 
-## 📖 Creating New Books
+## Creating New Books
 
 ### Option 1: Use the Batch Generator (Windows)
 ```bash
