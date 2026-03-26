@@ -1,0 +1,43 @@
+---
+layout: default
+title: "Blog"
+permalink: /blog/
+---
+
+<div class="card-frame">
+    <div class="card-corners">
+        <span class="corner corner-tl">❧</span>
+        <span class="corner corner-tr">❧</span>
+        <span class="corner corner-bl">❧</span>
+        <span class="corner corner-br">❧</span>
+    </div>
+
+    <div class="library-header">
+        <h1 class="library-title">{{ page.title | upcase }}</h1>
+        <!-- Navigation -->
+        <nav class="site-nav">
+            <a href="{{ '/' | relative_url }}" class="nav-link">LIBRARY</a>
+            <span class="nav-divider">/</span>
+            <a href="{{ '/blog' | relative_url }}" class="nav-link current">BLOG</a>
+            <span class="nav-divider">/</span>
+            <a href="{{ '/about' | relative_url }}" class="nav-link">ABOUT</a>
+            <span class="nav-divider">/</span>
+            <a href="{{ '/contact' | relative_url }}" class="nav-link">CONTACT</a>
+        </nav>
+        <p class="library-subtitle">Thoughts, reviews, and literary musings</p>
+    </div>
+
+    <div class="book-grid">
+        {% for post in site.posts %}
+        <a href="{{ post.url | relative_url }}" class="book-card blog-card">
+            <div class="book-card-info">
+                <h3 class="book-card-title">{{ post.title }}</h3>
+                <p class="book-card-author">{{ post.date | date: "%B %d, %Y" }}</p>
+                {% if post.excerpt %}
+                <p class="book-card-traits">{{ post.excerpt | strip_html | truncatewords: 12 }}</p>
+                {% endif %}
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</div>

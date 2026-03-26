@@ -1,12 +1,20 @@
 # Site settings
-title: My Little Website
+title: My Little Library
 tagline: "Changing the world, one uninspired quote at a time"
-url: "http://yourwebsite.com" # The base hostname & protocol for your site. Use it if you need absolute URL's
+url: "http://library.darbooks.com" # The base hostname & protocol for your site. Use it if you need absolute URL's
+
+# Blog/Posts settings
+permalink: /blog/:year/:month/:day/:title/
+excerpt_separator: "<!-- excerpt -->"
 
 collections:
   books:
     output: true
     permalink: /books/:title/
+  chapters:
+    output: true
+    permalink: /chapters/:path/
+    sort_by: chapter
 
 defaults:
   - scope:
@@ -14,6 +22,11 @@ defaults:
       type: "books"
     values:
       layout: "book-profile"
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
 
 # Build settings
 markdown: kramdown
@@ -42,4 +55,4 @@ email: "hello@garrettboatman.com" # This is my real email address. Please don't 
 #sass:
 #    style: compressed
 
-exclude: [.scss, README.md, node_modules, gruntfile.js, package.json]
+exclude: [README.md, node_modules, gruntfile.js, package.json, book-theme.gemspec, Gemfile.lock]

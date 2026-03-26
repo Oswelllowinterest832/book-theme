@@ -139,7 +139,7 @@ layout: default  # ← Standalone, not wrapped by book-profile
                     <div class="scroll-box">
                         <div class="intro-text-wrapper">
                             <p class="intro-text">
-                                <strong>{{ page.title }}</strong> from 
+                                <strong>{{ page.title }}</strong> from
                                 <em>{{ display_title }}</em> by {{ display_author }}.
                             </p>
                         </div>
@@ -160,14 +160,14 @@ layout: default  # ← Standalone, not wrapped by book-profile
                     <span class="line-dashed-left"></span>
                     <ul class="bullet-list">
                         <li class="book-link">
-                            <a href="{{ '/' | relative_url }}">📚 Back to Library</a>
+                            <a href="{{ '/' | relative_url }}">Back to Library</a>
                         </li>
-                        
-                        {% assign book_chapters = site.chapters 
+
+                        {% assign book_chapters = site.chapters
                             | where_exp: "chap", "chap.path contains book_identifier"
-                            | sort: "chapter" 
+                            | sort: "chapter"
                         %}
-                        
+
                         {% for chap in book_chapters %}
                         <li>
                             <a href="{{ chap.url | relative_url }}">

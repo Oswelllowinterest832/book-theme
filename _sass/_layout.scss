@@ -73,7 +73,7 @@ body {
 /* Library Index Page Styles */
 .library-header {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     padding-bottom: 20px;
     border-bottom: 2px solid $color-border;
 
@@ -91,6 +91,32 @@ body {
         color: #777;
         font-style: italic;
         margin: 0;
+    }
+}
+
+/* ========================================
+   SITE NAVIGATION - VINTAGE STYLE
+   ======================================== */
+.site-nav {
+    text-align: center;
+    margin: 0px 5px;
+    padding: 0;
+
+    .nav-link {
+        color: $color-accent-dark;  /* Not blue - uses your theme color */
+        text-decoration: none;
+        font-size: 1.2rem;  /* Larger, matches title style */
+        font-family: 'Cormorant Garamond', serif;  /* Same as titles */
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        margin: 0 10px;
+        transition: all 0.2s ease;
+
+        &:hover,
+        &.current {
+            color: $color-accent;  /* Hover uses accent color */
+            text-decoration: none;
+        }
     }
 }
 
